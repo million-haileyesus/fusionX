@@ -209,7 +209,7 @@ function handleModelSelectionPopup() {
             updateModelName(modelName);
         });
     });
-    
+
     function updateModelName(modelName) {
         const titleCaseModelName = modelName.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
         const modelButtonText = document.getElementById('modelButtonText');

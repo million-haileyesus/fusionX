@@ -4,7 +4,7 @@ import os
 import tempfile
 from flask import jsonify, request, Blueprint, render_template
 from nst import neural_style_transfer
-from openai import OpenAI
+# from openai import OpenAI
 from config import Config
 from utils.generate import Model, ModelError
 from utils.nst_utils import (process_image_data, write_temp_file, 
@@ -14,10 +14,10 @@ from utils.nst_utils import (process_image_data, write_temp_file,
 studio_bp = Blueprint('studio_bp', __name__, url_prefix='/studio')
 
 
-client = OpenAI()
-client.api_key = os.environ.get('OPENAI_API_KEY')
+# client = OpenAI()
+# client.api_key = os.getenv('OPENAI_API_KEY')
 
-HF_API_KEY = os.environ.get('HF_API_KEY')
+HF_API_KEY = os.getenv('HF_API_KEY')
 HF_ENDPOINTS = {
     'stable-diffusion-v15': os.getenv('STABLE_DIFFUSION_V15'),
     'stable-diffusion-v21': os.getenv('STABLE_DIFFUSION_V21'),
@@ -56,6 +56,7 @@ def generate():
         model = Model(HF_ENDPOINTS[model_name], prompt, negative_prompt, guidance_scale, inference_steps, height, width)
         base64_image = model.generate()
         return jsonify({'result': f"data:image/png;base64,{base64_image}"})
+
     except ModelError as e:
         logging.error(f"An error occurred: {e}")
         return jsonify({'error': 'Failed to generate image'}), 500

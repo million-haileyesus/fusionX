@@ -67,10 +67,30 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="list-group">
-                    {% for model in models %}
-                            <a class="list-group-item model-item" href="#" data-bs-dismiss="modal" data-model="{{ model.name }}" title="{{ model.description }}">{{ model.title }}</a>
-                    {% endfor %}
+                <div id="carouselExampleControls" class="carousel slide">
+                    <div class="carousel-inner">
+                        {% for model in models %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <a href="#" class="model-item" data-model="{{ model.name }}">
+                                    <div class="card">
+                                        <img src=" {{ model.image }} " class="card-img-top">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ model.title }}</h5>
+                                            <p class="card-text">{{ model.description }}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
             </div>
         </div>
@@ -83,7 +103,7 @@
         <svg id="arrowIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-angle-expand" viewBox="0 0 16 16" style="margin-left: 8px;">
             <path fill-rule="evenodd" d="M5.828 10.172a.5.5 0 0 0-.707 0l-4.096 4.096V11.5a.5.5 0 0 0-1 0v3.975a.5.5 0 0 0 .5.5H4.5a.5.5 0 0 0 0-1H1.732l4.096-4.096a.5.5 0 0 0 0-.707zm4.344-4.344a.5.5 0 0 0 .707 0l4.096-4.096V4.5a.5.5 0 1 0 1 0V.525a.5.5 0 0 0-.5-.5H11.5a.5.5 0 0 0 0 1h2.768l-4.096 4.096a.5.5 0 0 0 0 .707z"/>
         </svg>
-    </button>                                                          
+    </button>
 </div>
 
 <!-- center this hr -->

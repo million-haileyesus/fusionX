@@ -135,6 +135,51 @@
 .modal-container .btn:hover {
     background: none;
 }
+.model-item {
+    text-decoration: none;
+}
+
+.carousel-control-icon {
+    color: white;
+}
+
+.carousel-control-icon::before {
+    content: '';
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(0%);
+}
+
+.prev-icon::before {
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}
+
+.next-icon::before {
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+}
+
+.card {
+    background-image: linear-gradient(to top right, rgb(201, 145, 179), rgb(225, 197, 159));
+}
+
+.modal-content {
+    background-color: #092635; /* something that is not black but a darker color */
+}
+.card-body {
+    color: white;
+}
 
 .button-container {
     display: flex;
