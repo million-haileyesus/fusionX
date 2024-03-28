@@ -1,14 +1,3 @@
-import os
-
-def get_img(image):
-	directory_path = "C:/Users/noill/OneDrive/Desktop/module/4. Senior Year/SENIOR PROJECT/fusionX/app/static/img/model"
-	image_filename = f"{image}.jpg"
-	image_path = os.path.join(directory_path, image_filename)
-	absolute_image_path = os.path.abspath(image_path)
-
-	return absolute_image_path
-
-
 MODELS = [
 	{
 		'title': 'Stable Diffusion V15',
