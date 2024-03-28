@@ -120,6 +120,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 .modal-container .btn {
     display: inline-block; /* Allows the button to have a specific width */
@@ -138,7 +139,18 @@
 .model-item {
     text-decoration: none;
 }
-
+#card-description {
+    background-image: linear-gradient(to top right, rgb(41, 37, 39), rgb(5, 92, 63));
+}
+.modal-content {
+    background-color: #092635;
+}
+.card-body {
+    color: white;
+}
+#card-description img {
+    object-fit: contain;
+}
 .carousel-control-icon {
     color: white;
 }
@@ -168,17 +180,6 @@
     padding: 3px;
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
-}
-
-#card_description {
-    background-image: linear-gradient(to top right, rgb(41, 37, 39), rgb(5, 92, 63));
-}
-
-.modal-content {
-    background-color: #092635;
-}
-.card-body {
-    color: white;
 }
 
 .button-container {

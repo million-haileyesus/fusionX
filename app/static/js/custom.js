@@ -201,12 +201,14 @@ function generateImage(event, promptId, imageId, placeholderId) {
 function handleModelSelectionPopup() {
     const modelModal = document.getElementById('modelModal');
     const modelButtons = document.querySelectorAll('.model-item');
+    const modelModalInstance = new bootstrap.Modal(document.getElementById('modelModal'));
 
     modelButtons.forEach(button => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
             const modelName = button.dataset.model;
             updateModelName(modelName);
+            modelModal.classList.remove("selected");
         });
     });
 
@@ -216,8 +218,7 @@ function handleModelSelectionPopup() {
         modelButtonText.textContent = titleCaseModelName;
         const modelInput = document.getElementById('model_input');
         modelInput.value = modelName;
-        const modelModal = new bootstrap.Modal(document.getElementById('modelModal'));
-        modelModal.hide();
+        modelModalInstance.hide();
     }
 }
 
