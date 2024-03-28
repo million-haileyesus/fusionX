@@ -170,12 +170,12 @@
     -webkit-transform: rotate(-45deg);
 }
 
-.card {
-    background-image: linear-gradient(to top right, rgb(201, 145, 179), rgb(225, 197, 159));
+#card_description {
+    background-image: linear-gradient(to top right, rgb(41, 37, 39), rgb(5, 92, 63));
 }
 
 .modal-content {
-    background-color: #092635; /* something that is not black but a darker color */
+    background-color: #092635;
 }
 .card-body {
     color: white;
