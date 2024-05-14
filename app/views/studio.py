@@ -4,18 +4,13 @@ import os
 import tempfile
 from flask import jsonify, request, Blueprint, render_template
 from nst import neural_style_transfer
-# from openai import OpenAI
+from editor import enhance_image
 from config import Config
 from utils.generate import Model, ModelError
-from utils.nst_utils import (process_image_data, write_temp_file, 
+from utils.nst_utils import (process_image_data, write_temp_file,
                              cleanup_temp_files, generate_unique_file_name)
 
-
 studio_bp = Blueprint('studio_bp', __name__, url_prefix='/studio')
-
-
-# client = OpenAI()
-# client.api_key = os.getenv('OPENAI_API_KEY')
 
 HF_API_KEY = os.getenv('HF_API_KEY')
 HF_ENDPOINTS = {
@@ -36,14 +31,35 @@ def result():
     return render_template('result.html')
 
 
+@studio_bp.route('/enhance', methods=['POST'])
+def enhance():
+    data = request.get_json()
+    if not data or 'input_image' not in data:
+        return jsonify({'error': 'Missing input_image in request'}), 400
+
+    content_data = data['input_image']
+
+    try:
+        result_image = enhance_image(content_data)
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        return jsonify({'error': 'Failed to enhance image'}), 500
+
+    return jsonify({
+        'result': f"data:image/png;base64,{result_image}"
+    })
+
+
 @studio_bp.route('/generate', methods=['POST'])
 def generate():
     try:
         data = request.get_json()
+        print(data)
+
         prompt = data.get('prompt', '')
         if not prompt:
             return jsonify({'error': 'Prompt is required'}), 400
-        
+
         negative_prompt = data.get('negativePrompt', '')
         guidance_scale = data.get('guidanceScale', 7)
         inference_steps = data.get('inferenceSteps', 30)
@@ -51,12 +67,12 @@ def generate():
         width = data.get('width', 512)
         model_name = data.get('model', 'realistic-vision-v14')
 
-        print(f"Model: {model_name}, Prompt: {prompt}, Negative Prompt: {negative_prompt}, Guidance Scale: {guidance_scale}, Inference Steps: {inference_steps}, Height: {height}, Width: {width}")
+        print(
+            f"Model: {model_name}, Prompt: {prompt}, Negative Prompt: {negative_prompt}, Guidance Scale: {guidance_scale}, Inference Steps: {inference_steps}, Height: {height}, Width: {width}")
 
         model = Model(HF_ENDPOINTS[model_name], prompt, negative_prompt, guidance_scale, inference_steps, height, width)
         base64_image = model.generate()
         return jsonify({'result': f"data:image/png;base64,{base64_image}"})
-
     except ModelError as e:
         logging.error(f"An error occurred: {e}")
         return jsonify({'error': 'Failed to generate image'}), 500
@@ -75,7 +91,7 @@ def merge():
 
         # Create temporary files for processing
         with tempfile.NamedTemporaryFile(delete=False, suffix=f'.{content_extension}') as content_temp_file, \
-             tempfile.NamedTemporaryFile(delete=False, suffix=f'.{style_extension}') as style_temp_file:
+                tempfile.NamedTemporaryFile(delete=False, suffix=f'.{style_extension}') as style_temp_file:
 
             write_temp_file(content_temp_file, content_image_data)
             write_temp_file(style_temp_file, style_image_data)
@@ -86,7 +102,7 @@ def merge():
             # Close temporary files before cleanup
             content_temp_file.close()
             style_temp_file.close()
-            
+
             # Cleanup and return result
             cleanup_temp_files([content_temp_file.name, style_temp_file.name])
             return jsonify({'result': f"data:image/jpeg;base64,{result_image_base64}"})

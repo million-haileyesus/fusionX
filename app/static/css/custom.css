@@ -14,7 +14,21 @@
 .carousel-indicators li {
     font-size: 0;   /* Hide the indicator text i.e. numbers */
 }
-
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23fff" class="bi bi-chevron-right" viewBox="0 0 16 16"><path d="M5.646 8l4.647-4.646a.5.5 0 0 0-.708-.708l-5 5a.5.5 0 0 0 0 .708l5 5a.5.5 0 0 0 .708-.708L5.646 8z"/></svg>');
+}
+.carousel-control-next-icon {
+    background-image: url('data:image/svg+xml;charset=utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="%23fff" class="bi bi-chevron-left" viewBox="0 0 16 16"><path d="M10.354 8l-4.647-4.646a.5.5 0 0 1 .708-.708l5 5a.5.5 0 0 1 0 .708l-5 5a.5.5 0 0 1-.708-.708L10.354 8z"/></svg>');
+}
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    background-size: 100%, 100%;
+    background-color: #000;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 10px;
+    margin: 10px;
+}
 
 /* GALLERY PAGE */
 .photos {
@@ -182,6 +196,48 @@
     -webkit-transform: rotate(-45deg);
 }
 
+#modelModal .unique-card {
+    width: 32%; /* Adjust the width for three cards per view */
+    height: 350px; /* Adjust height as needed */
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    background: linear-gradient(to top right, rgb(41, 37, 39), rgb(5, 92, 63));
+}
+
+#modelModal .unique-card-img {
+    height: 220px; /* Adjust image height here */
+    object-fit: cover; /* Ensures the image covers the area without stretching */
+}
+
+#modelModal .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#modelModal .card-title {
+    font-size: 1.25rem; /* Adjust title font size */
+    font-weight: bold;
+    color: white;
+}
+#modelModal .card-text {
+    font-size: 1rem; /* Adjust text font size */
+    color: #6c757d; /* Adjust text color */
+}
+#modelModal .badge {
+    background-color: #0FC2C0; /* Adjust badge background color */
+    color: white; /* Adjust badge text color */
+}
+#modelModal .carousel-inner {
+    display: flex;
+    align-items: center; /* Centers the cards vertically */
+}
+#modelModal .badge {
+    margin: 0.125rem; /* Space between badges */
+}
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -250,7 +306,10 @@
     align-items: center;
     color: #fff;
 }
+
 .image-container img {
+    min-width: 640px;
+    min-height: 360px;
     max-height: 768px;
     max-width: 100%;
     object-fit: contain;
@@ -259,14 +318,16 @@
     cursor: pointer;
     transition: 0.2s;
 }
+
 .editor-options {
-    border: 2px solid #eef5d8;
+    border: 2px solid #023535;
     border-radius: 15px;
     padding: 20px;
     justify-content: center;
     align-items: center;
     gap: 20px;
 }
+
 .editor-menu button {
     background: none;
     cursor: pointer;
@@ -274,8 +335,43 @@
     margin: 0;
     color: #fff;
 }
+
+.editor-menu button:disabled{
+    border: none;
+    color: grey;
+}
+
 .editor-menu button:hover {
     background: none;
-    color: #9FC131;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: #0FC2C0;
     font-weight: bold;
+}
+
+#cropWidth, #cropHeight, #applyCropButton {
+    margin-bottom: 20px;
+}
+
+.cropMenu {
+    margin-top: 50px;
+}
+
+#confirmButton {
+    margin: 20px 0;
+    padding: 10px 20px;
+    min-width: 150px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(27, 27, 27);
+    cursor: pointer;
+    transition-duration: .3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
+  }
+
+#confirmButton:hover {
+    background-color: #dfe6e6;
+    color: #000;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.11);
 }
